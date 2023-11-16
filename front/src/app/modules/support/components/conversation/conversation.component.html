@@ -1,0 +1,12 @@
+<p>conversation works!</p>
+
+<h2>Messages :</h2>
+<ul class="flex flex-col gap-2 mb-2">
+    <li class="w-fit flex flex-col border border-black" *ngFor="let message of messages$|async" [ngStyle]="{'color': message.sender.id === currentUserId ? 'green' : ''}">
+        <span class="text-xs">{{message.sender.username}}</span>
+        <span>{{message.message}}</span>
+    </li>
+</ul>
+
+<input class="border border-black" type="text" id="message-text" #messageText>
+<button id="send-message" (click)="sendMessage(messageText.value)">Send</button>

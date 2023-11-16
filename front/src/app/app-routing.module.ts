@@ -6,17 +6,22 @@ import { LoginComponent } from './modules/auth/components/login/login.component'
 import { RegisterComponent } from './modules/auth/components/register/register.component';
 import { AgencesComponent } from './modules/agences/components/agences/agences.component';
 import { SupportComponent } from './modules/support/components/support/support.component';
+import { MainComponent } from './modules/main/components/main/main.component';
+import { ConversationComponent } from './modules/support/components/conversation/conversation.component';
 
-const routes: Routes = [
+export const routes: Routes = [
     { path: 'auth', canActivate: [NotLoggedGuard], children: [
         { path: '', redirectTo: "login", pathMatch: "full" },
         { path: 'login', component: LoginComponent },
         { path: 'register', component: RegisterComponent },
     ]},
-    { path: '', pathMatch: "full", canActivate: [LoggedGuard], children: [
+    { path: '', component: MainComponent, canActivate: [LoggedGuard], children: [
         { path: '', redirectTo: "agences", pathMatch: "full" },
         { path: 'agences', component: AgencesComponent },
-        { path: 'support', component: SupportComponent },
+        { path: 'support', children: [
+            { path: '', component: SupportComponent },
+            { path: ':id', component: ConversationComponent}
+        ] },
     ]},
     { path: '**', redirectTo: "", pathMatch: "full" }
 ];

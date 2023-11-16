@@ -8,11 +8,19 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:4200"
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
       routes:
         - id: user_service
           uri: http://localhost:9090
           predicates:
             - Path=/user/**
+          filters:
+            - StripPrefix=1
+        - id: support_service
+          uri: http://localhost:9091
+          predicates:
+            - Path=/support/**
           filters:
             - StripPrefix=1

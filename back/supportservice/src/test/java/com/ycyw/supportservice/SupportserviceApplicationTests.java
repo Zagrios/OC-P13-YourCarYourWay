@@ -1,10 +1,10 @@
-package com.ycyw.userservice;
+package com.ycyw.supportservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UserServiceApplicationTests {
+class SupportserviceApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,21 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { map, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-    public test$ = new Subject<string|undefined>()
+    @ViewChild('username') usernameElement: ElementRef;
+    @ViewChild('password') passwordElement: ElementRef;
 
     public constructor(
-        private auth: AuthService
-    ){}
+        private auth: AuthService,
+        private router: Router,
+        usernameElement: ElementRef,
+        passwordElement: ElementRef,
+    ){
+        this.usernameElement = usernameElement;
+        this.passwordElement = passwordElement;
+    }
 
-    ngOnInit(): void {
-        this.auth.test().subscribe(data => this.test$.next(data?.at(0)));
+    public onClick(){
+        const username = this.usernameElement.nativeElement.value;
+        const password = this.passwordElement.nativeElement.value;
+
+        this.auth.login({username, password}).then(logged => {
+            if(!logged){ return; }
+            this.router.navigate(['/']);
+        });
     }
 
 }

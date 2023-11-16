@@ -1,1 +1,14 @@
-<p>support works!</p>
+<span>Titre</span>
+<input class="border border-black" type="text" name="" #convTitle>
+<br>
+<span>Desc</span>
+<input class="border border-black" type="text" name="" #convDesc>
+<button class="block mb-4" (click)="createConversation(convTitle.value, convDesc.value)">Create</button>
+
+<button>Create new ticket</button>
+<ul>
+    <h2>My tickets</h2>
+    <li *ngFor="let conversation of conversations">
+        <a [routerLink]="['/support', conversation.id]">{{conversation.title}}</a>
+    </li>
+</ul>
