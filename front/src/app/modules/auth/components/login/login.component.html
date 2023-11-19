@@ -1,10 +1,13 @@
-<div>
-    <label for="username">Username</label>
-    <input class="border-black border" id="username" type="text" name="" #username>
-</div>
-<div>
-    <label for="password">Mot de passe</label>
-    <input class="border-black border" id="password" type="text" name="" #password>
-</div>
-
-<button class="bg-green-400" (click)="onClick()">Valider</button>
+<form (submit)="$event.preventDefault(); submit(username.value, password.value)" class="flex flex-col gap-2 shadow-lg shadow-gray-500 rounded-md p-3 w-72">
+    <h1 class="w-full text-center font-bold text-xl">Connexion</h1>
+    <label for="username" class="flex flex-col">
+        <span class="font-bold">E-mail ou Nom d'utilisateur</span>
+        <input class="bg-gray-200 rounded-md w-full h-8 px-1" type="text" id="username" placeholder="E-mail ou Nom d'utilisateur" required #username>
+    </label>
+    <label for="password" class="flex flex-col">
+        <span class="font-bold">Mot de passe</span>
+        <input class="bg-gray-200 rounded-md w-full h-8 px-1" type="password" id="password" placeholder="Mot de passe" required #password>
+    </label>
+    <button class="bg-blue-500 text-white rounded-md h-8 font-bold" type="submit">Se connecter</button>
+    <a routerLink="/auth/register" class="text-blue-500 text-center w-full hover:underline">Je n'ai pas de compte</a>
+</form>

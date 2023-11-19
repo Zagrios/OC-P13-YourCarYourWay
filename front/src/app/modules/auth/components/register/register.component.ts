@@ -4,32 +4,19 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
     selector: 'app-register',
-    templateUrl: './register.component.html'
+    templateUrl: './register.component.html',
+    host: {
+        class: "w-full h-full flex justify-center items-center"
+    }
 })
 export class RegisterComponent {
-
-    @ViewChild('username') usernameElement: ElementRef;
-    @ViewChild('email') emailElement: ElementRef;
-    @ViewChild('password') passwordElement: ElementRef;
-
 
     public constructor(
         private auth: AuthService,
         private router: Router,
-        usernameElement: ElementRef,
-        emailElement: ElementRef,
-        passwordElement: ElementRef,
-    ){
-        this.usernameElement = usernameElement;
-        this.emailElement = usernameElement;
-        this.passwordElement = usernameElement;
-    }
+    ){}
 
-    public onClick(){
-        const username = this.usernameElement.nativeElement.value;
-        const email = this.emailElement.nativeElement.value;
-        const password = this.passwordElement.nativeElement.value;
-
+    public submit(username: string, email: string, password: string){
         this.auth.register({username, password, email}).then(logged => {
             if(!logged){ return; }
             this.router.navigate(['/']);

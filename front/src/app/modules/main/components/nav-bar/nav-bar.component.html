@@ -1,4 +1,10 @@
-<nav>
-    <a routerLink="/agences" routerLinkActive="active">Agences</a>
-    <a routerLink="/support" routerLinkActive="active">Support</a>
+<nav class="flex flex-row w-full gap-4 border-t-2 border-blue-500">
+    <a class="flex flex-col justify-center items-center uppercase p-3 text-center grow" routerLink="/agences" routerLinkActive="bg-gray-200">
+        <fa-icon [icon]="faStore"/>
+        <span class="text-xs">agences</span>
+    </a>
+    <a class="flex flex-col justify-center items-center uppercase p-3 text-center grow" routerLink="/support" routerLinkActive="bg-gray-200">
+        <fa-icon [icon]="faComments"/>
+        <span class="text-xs">support</span>
+    </a>
 </nav>

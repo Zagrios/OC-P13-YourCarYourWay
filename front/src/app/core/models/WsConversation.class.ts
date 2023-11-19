@@ -1,5 +1,5 @@
 import { Conversation } from "./conversation.interface";
-import { Subject, Observable } from "rxjs"
+import { Subject, Observable, shareReplay } from "rxjs"
 import { Message } from "./message.interface";
 // @ts-ignore
 import SockJS from "sockjs-client/dist/sockjs"
@@ -8,13 +8,9 @@ import { SendMessageWs } from "./dto/support/requests/send-message-ws.interface"
 
 export class WsConversation {
 
-    public static fromConversation(conversation: Conversation): WsConversation {
-        return new WsConversation(conversation)
-    }
-
     private stompClient: Stomp.Client | undefined;
 
-    private constructor(private readonly conversation: Conversation){
+    constructor(private readonly conversation: Conversation){
         this.conversation.messages ||= [];
     }
 
@@ -35,20 +31,38 @@ export class WsConversation {
 
             });
 
+            this.stompClient.ws.onclose = () => {
+                console.log("CLOSE ***");
+                obs.complete();
+            }
+
             socket.onclose = () => {
                 obs.complete();
             }
 
             return () => {
+                this.stompClient?.disconnect(() => {});
                 socket.close();
             }
 
-        });
+        }).pipe(shareReplay(1));
     }
 
     public sendMessage(message: SendMessageWs): void {
         if(!this.stompClient){ throw new Error("Stomp client is not connected"); }
         this.stompClient!.send(`/conversation/${this.conversation.id}`, {}, JSON.stringify(message));
+    }
+
+    public destroy(): Promise<void>{
+        if(!this.stompClient) { return Promise.resolve(); }
+
+        return new Promise((resolve) => {
+            this.stompClient!.disconnect(() => {
+                this.stompClient?.ws.close();
+                this.stompClient = undefined;
+                resolve();
+            });
+        });
     }
 
 }

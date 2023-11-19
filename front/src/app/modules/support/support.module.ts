@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SupportComponent } from './components/support/support.component';
 import { RouterModule } from '@angular/router';
 import { ConversationComponent } from './components/conversation/conversation.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -13,7 +14,8 @@ import { ConversationComponent } from './components/conversation/conversation.co
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FontAwesomeModule
   ]
 })
 export class SupportModule { }

@@ -1,14 +1,35 @@
-<span>Titre</span>
-<input class="border border-black" type="text" name="" #convTitle>
-<br>
-<span>Desc</span>
-<input class="border border-black" type="text" name="" #convDesc>
-<button class="block mb-4" (click)="createConversation(convTitle.value, convDesc.value)">Create</button>
+<div class="max-w-7xl p-3">
+    <h1 class="font-bold text-xl mb-3">Conversations</h1>
+    <ul class="w-full flex flex-row flex-wrap justify-center gap-3">
+        <li *ngFor="let conversation of conversations" class="bg-gray-200 p-3 rounded-md grow basis-0 flex flex-col gap-1.5 min-w-[250px] cursor-pointer hover:brightness-90" [routerLink]="['/support', conversation.id]">
+            <h3 class="font-bold text-lg capitalize">{{conversation.title}}</h3>
+            <p>{{conversation.description}}</p>
+            <div class="flex flex-row justify-between text-xs">
+                <span>{{conversation.creator.username}}</span>
+                <span>{{conversation.creationDate|date:'dd/MM/yyyy HH:mm'}}</span>
+            </div>
+        </li>
+    </ul>
+</div>
 
-<button>Create new ticket</button>
-<ul>
-    <h2>My tickets</h2>
-    <li *ngFor="let conversation of conversations">
-        <a [routerLink]="['/support', conversation.id]">{{conversation.title}}</a>
-    </li>
-</ul>
+<div class="bg-gray-200 rounded-md mb-3 max-w-xl w-full">
+    <div class="relative flex flex-row justify-center items-center py-1 cursor-pointer" (click)="openConvForm = !openConvForm">
+        <h3 class="text-center">Créé une nouvelle conversation</h3>
+        <fa-icon class="absolute right-2" [icon]="openConvForm ? faChevronDown : faChevronUp"/>
+    </div>
+    <div class="grid transition-[grid-template-rows]" [ngStyle]="{'grid-template-rows': openConvForm ? '1fr' : '0fr'}">
+        <div class="overflow-hidden">
+            <form class="flex flex-col gap-2 p-2" (submit)="$event.preventDefault(); createConversation(title.value, description.value)">
+                <div class="flex flex-col">
+                    <label for="title" class="font-bold">Titre</label>
+                    <input class="bg-gray-50 rounded-md h-8 px-1" type="text" id="title" name="title" required placeholder="Titre de la conversation" #title>
+                </div>
+                <div class="flex flex-col">
+                    <label for="description" class="font-bold">Description</label>
+                    <textarea class="bg-gray-50 rounded-md h-16 px-1" id="description" name="description" required placeholder="Déscription de la conversation" #description></textarea>
+                </div>
+                <button type="submit" class="bg-blue-500 float-right text-white rounded-md h-8 px-5">Créer</button>
+            </form>
+        </div>
+    </div>
+</div>

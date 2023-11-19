@@ -1,12 +1,25 @@
-<p>conversation works!</p>
+<div class="w-full flex flex-row gap-3 items-center border-b border-black py-3">
+    <fa-icon class="cursor-pointer" [icon]="faArrowLeft" routerLink="/support"/>
+    <h2 class="font-bold">{{(conversation$|async)?.title}}</h2>
+</div>
 
-<h2>Messages :</h2>
-<ul class="flex flex-col gap-2 mb-2">
-    <li class="w-fit flex flex-col border border-black" *ngFor="let message of messages$|async" [ngStyle]="{'color': message.sender.id === currentUserId ? 'green' : ''}">
-        <span class="text-xs">{{message.sender.username}}</span>
-        <span>{{message.message}}</span>
-    </li>
-</ul>
+<div class="w-full p-3 overflow-y-scroll grow">
+    <ul class="flex flex-col gap-1">
+        <li *ngFor="let message of (messages$|async)"
+            id="message-{{message.id}}"
+            class="flex flex-col items-end p-2 rounded-md"
+            [ngClass]="{'bg-gray-200': !isOwnMessage(message), 'bg-blue-200': isOwnMessage(message)}"
+            [ngStyle]="{'align-self': isOwnMessage(message) ? 'end' : 'start', 'align-items': isOwnMessage(message) ? 'flex-end' : 'flex-start'}"
+        >
+            <span>{{message.message}}</span>
+            <span class="text-xs">{{message.sender.username}} {{message.creationDate|date:'dd/MM/yyyy HH:mm'}}</span>
+        </li>
+    </ul>
+</div>
 
-<input class="border border-black" type="text" id="message-text" #messageText>
-<button id="send-message" (click)="sendMessage(messageText.value)">Send</button>
+<form class="w-full" (submit)="$event.preventDefault(); sendMessage(messageInput.value)">
+    <div class="flex flex-row items-center justify-between py-4">
+        <input type="text" class="w-full p-2 border rounded-md" placeholder="Message à envoyer" #messageInput />
+        <button type="button" class="ml-2 p-2 border rounded-md" (click)="sendMessage(messageInput.value)">Envoyer</button>
+    </div>
+</form>

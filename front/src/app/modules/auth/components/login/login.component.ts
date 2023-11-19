@@ -6,26 +6,18 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
+    host: {
+        class: "w-full h-full flex justify-center items-center"
+    }
 })
 export class LoginComponent {
-
-    @ViewChild('username') usernameElement: ElementRef;
-    @ViewChild('password') passwordElement: ElementRef;
 
     public constructor(
         private auth: AuthService,
         private router: Router,
-        usernameElement: ElementRef,
-        passwordElement: ElementRef,
-    ){
-        this.usernameElement = usernameElement;
-        this.passwordElement = passwordElement;
-    }
+    ){}
 
-    public onClick(){
-        const username = this.usernameElement.nativeElement.value;
-        const password = this.passwordElement.nativeElement.value;
-
+    public submit(username: string, password: string){
         this.auth.login({username, password}).then(logged => {
             if(!logged){ return; }
             this.router.navigate(['/']);
