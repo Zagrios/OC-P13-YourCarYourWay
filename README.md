@@ -20,9 +20,8 @@ Note: For this POC, accounts with the username `admin` will automatically be ass
 <details>
   <summary>Preview of the website</summary>
 
-![image](https://github.com/Zagrios/OC-P13-YourCarYourWay/assets/40181755/3be4a70b-5bd7-478d-b9b6-4c1ee10428b1)
+![image](https://github.com/Zagrios/OC-P13-YourCarYourWay/assets/40181755/ded7e885-71c4-4373-b352-14f0e9bbb5ec)
 
-![image](https://github.com/Zagrios/OC-P13-YourCarYourWay/assets/40181755/e223db47-fc6e-4c01-86b7-201f2586ed44)
-
+![image](https://github.com/Zagrios/OC-P13-YourCarYourWay/assets/40181755/c63a501e-da5e-41d6-a654-1a94753df4d7)
   
 </details>
