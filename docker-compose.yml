@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # API Gateway
+  apigateway:
+    build: ./back/apigateway
+    ports:
+      - "8085:8085"
+
+  # User Service
+  userservice:
+    build: ./back/userservice
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_userservice:3306/ycyw_userservice
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      db_userservice:
+        condition: service_healthy
+
+  # Base de données pour User Service
+  db_userservice:
+    image: mysql:8.0.26
+    environment:
+      MYSQL_DATABASE: 'ycyw_userservice'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - "33061:3306"
+    volumes:
+      - userservice-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Support Service
+  supportservice:
+    build: ./back/supportservice
+    ports:
+      - "9091:9091"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_supportservice:3306/ycyw_supportservice
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      USER_SERVICE_URL: http://userservice:9090
+    depends_on:
+      db_supportservice:
+        condition: service_healthy
+
+  # Base de données pour Support Service
+  db_supportservice:
+    image: mysql:8.0.26
+    environment:
+      MYSQL_DATABASE: 'ycyw_supportservice'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - "33062:3306"
+    volumes:
+      - supportservice-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Frontend
+  front:
+    build: ./front
+    ports:
+      - "80:80"
+
+# Volumes
+volumes:
+  userservice-db:
+  supportservice-db:
