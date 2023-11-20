@@ -2,6 +2,14 @@
 
 This project uses Angular 16 for the Front-End, and the Back-End is divided into multiple services using SpringBoot 3.5.
 
+<details>
+  <summary>POC Architecture preview</summary>
+
+![Diagramme Technique drawio (2) (en)](https://github.com/Zagrios/OC-P13-YourCarYourWay/assets/40181755/f79d7947-a73b-4592-a43b-8c98b17679b4)
+
+
+</details>
+
 ## Requirements
 - Ensure you have [Docker Engine](https://docs.docker.com/engine/install/) installed.
 
