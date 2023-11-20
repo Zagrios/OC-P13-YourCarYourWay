@@ -1,0 +1,26 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+      routes:
+        - id: user_service
+          uri: http://userservice:9090
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+        - id: support_service
+          uri: http://supportservice:9091
+          predicates:
+            - Path=/support/**
+          filters:
+            - StripPrefix=1

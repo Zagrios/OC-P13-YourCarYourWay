@@ -1,0 +1,17 @@
+<form (submit)="$event.preventDefault(); submit(username.value, email.value, password.value)" class="flex flex-col gap-2 shadow-lg shadow-gray-500 rounded-md p-3 w-72">
+    <h1 class="w-full text-center font-bold text-xl">Inscription</h1>
+    <label for="username" class="flex flex-col">
+        <span class="font-bold">Nom d'utilisateur</span>
+        <input class="bg-gray-200 rounded-md w-full h-8 px-1" type="text" id="username" placeholder="Nom d'utilisateur" required #username>
+    </label>
+    <label for="username" class="flex flex-col">
+        <span class="font-bold">E-mail</span>
+        <input class="bg-gray-200 rounded-md w-full h-8 px-1" type="text" id="username" placeholder="E-mail" required #email>
+    </label>
+    <label for="password" class="flex flex-col">
+        <span class="font-bold">Mot de passe</span>
+        <input class="bg-gray-200 rounded-md w-full h-8 px-1" type="password" id="password" placeholder="Mot de passe" required #password>
+    </label>
+    <button class="bg-blue-500 text-white rounded-md h-8 font-bold" type="submit">S'inscrire</button>
+    <a routerLink="/auth/login" class="text-blue-500 text-center w-full hover:underline">J'ai déjà un compte</a>
+</form>
