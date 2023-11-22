@@ -38,8 +38,6 @@ public class JwtFilter extends OncePerRequestFilter {
     private UserDetails validToken(String token){
         final String uriEndpoint = String.join("/", USER_SERVER, "auth", "me");
 
-        System.out.println(uriEndpoint);
-
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
@@ -81,8 +79,6 @@ public class JwtFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         final UserDetails user = this.validToken(jwt);
-
-        System.out.println(user);
 
         final UsernamePasswordAuthenticationToken authWithUser = new UsernamePasswordAuthenticationToken(user, jwt, null);
 

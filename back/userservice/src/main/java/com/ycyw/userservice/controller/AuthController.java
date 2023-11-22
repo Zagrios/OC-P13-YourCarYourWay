@@ -80,7 +80,6 @@ public class AuthController {
             return ResponseEntity.ok(new LoginResponse(this.jwtService.createJwt(userDetails.getId().toString())));
         }
         catch (AuthenticationException e){
-            System.out.println(e);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 

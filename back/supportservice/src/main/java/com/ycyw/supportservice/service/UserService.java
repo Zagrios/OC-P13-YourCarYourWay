@@ -22,8 +22,6 @@ public class UserService {
 
         final String uriEndpoint = String.join("/", USER_SERVER, "details", String.valueOf(id));
 
-        System.out.println(uriEndpoint);
-
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> entity = new HttpEntity<>(headers);

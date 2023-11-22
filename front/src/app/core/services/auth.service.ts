@@ -73,7 +73,6 @@ export class AuthService {
     }
 
     public tryAutoLogin(){
-        console.log("tryAutoLogin", this.isLoggedIn);
         if(this.isLoggedIn){ return Promise.resolve(this._userInfo$.value); }
 
         if(!this.getToken()){

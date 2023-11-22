@@ -32,7 +32,6 @@ export class WsConversation {
             });
 
             this.stompClient.ws.onclose = () => {
-                console.log("CLOSE ***");
                 obs.complete();
             }
 

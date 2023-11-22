@@ -8,8 +8,6 @@ export const LoggedGuard: CanActivateFn = async () => {
 
     const isLogged = !!(await auth.tryAutoLogin().catch(() => false));
 
-    console.log("LoggedGuard", isLogged);
-
     if (!isLogged) { return router.parseUrl('/auth'); }
 
     return isLogged;
